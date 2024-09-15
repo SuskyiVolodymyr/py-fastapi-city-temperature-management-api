@@ -1,13 +1,16 @@
 import sqlalchemy
+from sqlalchemy.ext.asyncio import create_async_engine, AsyncSession
 from sqlalchemy.ext.declarative import declarative_base
 
-SQLALCHEMY_DATABASE_URL = "sqlite:///./city_temperature.db"
+SQLALCHEMY_DATABASE_URL = "sqlite+aiosqlite:///./city_temperature.db"
 
-engine = sqlalchemy.create_engine(
-    SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False}
+engine = create_async_engine(
+    SQLALCHEMY_DATABASE_URL, echo=True
 )
-SessionLocal = sqlalchemy.orm.sessionmaker(
-    autocommit=False, autoflush=False, bind=engine
+AsyncSessionLocal = sqlalchemy.orm.sessionmaker(
+    bind=engine,
+    class_=AsyncSession,
+    expire_on_commit=False
 )
 
 Base = declarative_base()

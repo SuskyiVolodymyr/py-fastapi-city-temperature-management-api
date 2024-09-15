@@ -16,5 +16,6 @@ class TemperatureCreate(TemperatureBase):
 class Temperature(TemperatureBase):
     id: int
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        "orm_mode": True,
+    }

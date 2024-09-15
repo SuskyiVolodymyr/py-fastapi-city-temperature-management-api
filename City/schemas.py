@@ -13,5 +13,6 @@ class CityCreate(CityBase):
 class City(CityBase):
     id: int
 
-    class Config:
-        orm_mode = True
+    model_config = {
+        "orm_mode": True,
+    }
